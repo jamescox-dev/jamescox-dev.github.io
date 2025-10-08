@@ -181,7 +181,7 @@
       setColor('shirt', urlParams.get('shirt') || '#ff7dff', true);
       setColor('jacket', urlParams.get('jacket') || '#891688', true);
 
-      document.getElementById('share-button').addEventListener('click', function () {
+      document.getElementById('share-button').addEventListener('click', async function () {
         var link = window.location.href.split('?')[0];
         const urlParams = new URLSearchParams(window.location.search);
         urlParams.set('face', document.getElementById(`face-color-selector`).value);
@@ -194,7 +194,17 @@
         urlParams.set('shirt', document.getElementById(`shirt-color-selector`).value);
         urlParams.set('jacket', document.getElementById(`jacket-color-selector`).value);
         var url = 'https://web.whatsapp.com/send?text=' + encodeURIComponent(link + '?' + urlParams);
-        window.open(url, '_blank');
+
+        try {
+          const shareData = {
+            title: "The Ripple Effect",
+            text: "Check out this version of the Rev!",
+            url: url,
+          };
+          await navigator.share(shareData);
+        } catch (err) {
+          window.open(url, '_blank');
+        }
       });
     })();
   </script>
