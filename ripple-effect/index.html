@@ -193,7 +193,7 @@
         urlParams.set('dog-collar', document.getElementById(`dog-collar-color-selector`).value);
         urlParams.set('shirt', document.getElementById(`shirt-color-selector`).value);
         urlParams.set('jacket', document.getElementById(`jacket-color-selector`).value);
-        var url = 'https://web.whatsapp.com/send?text=' + encodeURIComponent(link + '?' + urlParams);
+        var url = link + '?' + urlParams;
 
         try {
           const shareData = {
@@ -203,7 +203,7 @@
           };
           await navigator.share(shareData);
         } catch (err) {
-          window.open(url, '_blank');
+          window.open('https://web.whatsapp.com/send?text=' + encodeURIComponent(url), '_blank');
         }
       });
     })();
